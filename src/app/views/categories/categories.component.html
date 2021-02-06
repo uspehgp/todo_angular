@@ -12,7 +12,7 @@
     <div class="sidebar-wrapper">
         <ul class="nav">
             <li class="nav-item">
-                <a *ngFor="let category of categories" class="nav-link">
+                <a (click)="showTasksByCategory(category)" *ngFor="let category of categories" class="nav-link">
                     <p>{{category.title}}</p>
                 </a>
             </li>
