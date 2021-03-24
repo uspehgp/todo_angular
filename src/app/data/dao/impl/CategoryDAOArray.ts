@@ -1,10 +1,21 @@
 import {CategoryDAO} from "../interface/CategoryDAO";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {Category} from "../../../model/Category";
+import {TestData} from "../../TestData";
 
 export class CategoryDAOArray implements CategoryDAO {
 
-    add(T): Observable<Category> {
+
+    get(id: number): Observable<Category> {
+        return undefined;
+    }
+
+    getAll(): Observable<Category[]> {
+        return of(TestData.categories);
+    }
+
+
+    add(category: Category): Observable<Category> {
         return undefined;
     }
 
@@ -12,20 +23,14 @@ export class CategoryDAOArray implements CategoryDAO {
         return undefined;
     }
 
-    get(id: number): Observable<Category> {
+    update(category: Category): Observable<Category> {
         return undefined;
     }
 
-    getAll(): Observable<Category[]> {
-        return undefined;
-    }
 
     search(title: string): Observable<Category[]> {
         return undefined;
     }
 
-    update(T): Observable<Category> {
-        return undefined;
-    }
 
 }

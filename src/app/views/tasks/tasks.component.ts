@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Task} from 'src/app/model/Task';
 import {DataHandlerService} from "../../service/data-handler.service";
+import {Task} from 'src/app/model/Task';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
@@ -12,13 +12,17 @@ import {MatSort} from "@angular/material/sort";
 })
 export class TasksComponent implements OnInit, AfterViewInit {
 
-    tasks: Task[];
+
+    // поля для таблицы (те, что отображают данные из задачи - должны совпадать с названиями переменных класса)
     displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category'];
     dataSource: MatTableDataSource<Task>; // контейнер - источник данных для таблицы
 
     // ссылки на компоненты таблицы
     @ViewChild(MatPaginator, {static: false}) private paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) private sort: MatSort;
+
+
+    tasks: Task[];
 
     constructor(private dataHandler: DataHandlerService) {
     }
@@ -34,9 +38,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
 
     // в этом методе уже все проинциализировано, поэтому можно присваивать объекты (иначе может быть ошибка undefined)
     ngAfterViewInit(): void {
-
         this.addTableObjects();
-
     }
 
 
@@ -44,22 +46,25 @@ export class TasksComponent implements OnInit, AfterViewInit {
         task.completed = !task.completed;
     }
 
+    // в зависимости от статуса задачи - вернуть цвет названия
     getPriorityColor(task: Task) {
 
+        // цвет завершенной задачи
         if (task.completed) {
-            return '#F8F9FA';
+            return '#F8F9FA'; // TODO вынести цвета в константы (magic strings, magic numbers)
         }
 
         if (task.priority && task.priority.color) {
             return task.priority.color;
         }
 
-        return '#fff';
+        return '#fff'; // TODO вынести цвета в константы (magic strings, magic numbers)
 
     }
 
     // показывает задачи с применением всех текущий условий (категория, поиск, фильтры и пр.)
     private refreshTable() {
+
 
         this.dataSource.data = this.tasks; // обновить источник данных (т.к. данные массива tasks обновились)
 
@@ -95,6 +100,4 @@ export class TasksComponent implements OnInit, AfterViewInit {
         this.dataSource.sort = this.sort; // компонент для сортировки данных (если необходимо)
         this.dataSource.paginator = this.paginator; // обновить компонент постраничности (кол-во записей, страниц)
     }
-
-
 }

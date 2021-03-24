@@ -6,20 +6,23 @@ import {Task} from 'src/app/model/Task';
 import {TestData} from "../../TestData";
 
 export class TaskDAOArray implements TaskDAO {
-    add(T): Observable<Task> {
-        return undefined;
-    }
 
-    delete(id: number): Observable<Task> {
-        return of();
+
+    getAll(): Observable<Task[]> {
+        return of(TestData.tasks);
     }
 
     get(id: number): Observable<Task> {
         return undefined;
     }
 
-    getAll(): Observable<Task[]> {
-        return of(TestData.tasks);
+
+    add(T): Observable<Task> {
+        return undefined;
+    }
+
+    delete(id: number): Observable<Task> {
+        return undefined;
     }
 
     getCompletedCountInCategory(category: Category): Observable<number> {
