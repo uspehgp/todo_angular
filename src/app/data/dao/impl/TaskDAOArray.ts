@@ -4,6 +4,7 @@ import {Observable, of} from "rxjs";
 import {Priority} from "../../../model/Priority";
 import {Task} from 'src/app/model/Task';
 import {TestData} from "../../TestData";
+import {filter} from "rxjs/operators";
 
 export class TaskDAOArray implements TaskDAO {
 
@@ -42,7 +43,16 @@ export class TaskDAOArray implements TaskDAO {
     }
 
     search(category: Category, searchText: string, status: boolean, priority: Priority): Observable<Task[]> {
-        return undefined;
+        return of(this.searchTodos(category,searchText,status,priority));
+    }
+
+    private searchTodos(category: Category, searchText: string, status: boolean, priority: Priority): Task[] {
+        let allTasks = TestData.tasks;
+        if (!category) {
+            allTasks = allTasks.filter(todo => todo.category === category)
+        }
+        return allTasks;
+
     }
 
     update(T): Observable<Task> {

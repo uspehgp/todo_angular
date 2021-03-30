@@ -21,8 +21,13 @@ export class TasksComponent implements OnInit {
     @ViewChild(MatPaginator, {static: false}) private paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) private sort: MatSort;
 
-    @Input()
     tasks: Task[];
+
+    @Input('tasks')
+    private set setTasks(tasks: Task[]) {
+        this.tasks=tasks;
+        this.fillTable()
+    }
 
     constructor(private dataHandler: DataHandlerService) {
     }
@@ -37,9 +42,9 @@ export class TasksComponent implements OnInit {
     }
 
     // в этом методе уже все проинциализировано, поэтому можно присваивать объекты (иначе может быть ошибка undefined)
-    ngAfterViewInit(): void {
-        this.addTableObjects();
-    }
+    // ngAfterViewInit(): void {
+    //     this.addTableObjects();
+    // }
 
 
     toggleTaskCompleted(task: Task) {
@@ -64,6 +69,10 @@ export class TasksComponent implements OnInit {
 
     // показывает задачи с применением всех текущий условий (категория, поиск, фильтры и пр.)
     private fillTable() {
+
+        if (!this.dataSource){
+            return;
+        }
 
         this.dataSource.data = this.tasks; // обновить источник данных (т.к. данные массива tasks обновились)
 
