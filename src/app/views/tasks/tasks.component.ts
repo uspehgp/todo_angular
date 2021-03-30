@@ -25,7 +25,7 @@ export class TasksComponent implements OnInit {
 
     @Input('tasks')
     private set setTasks(tasks: Task[]) {
-        this.tasks=tasks;
+        this.tasks = tasks;
         this.fillTable()
     }
 
@@ -70,7 +70,7 @@ export class TasksComponent implements OnInit {
     // показывает задачи с применением всех текущий условий (категория, поиск, фильтры и пр.)
     private fillTable() {
 
-        if (!this.dataSource){
+        if (!this.dataSource) {
             return;
         }
 

@@ -48,7 +48,7 @@ export class TaskDAOArray implements TaskDAO {
 
     private searchTodos(category: Category, searchText: string, status: boolean, priority: Priority): Task[] {
         let allTasks = TestData.tasks;
-        if (!category) {
+        if (category!=null) {
             allTasks = allTasks.filter(todo => todo.category === category)
         }
         return allTasks;

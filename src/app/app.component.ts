@@ -24,9 +24,11 @@ export class AppComponent {
 
     onSelectCategory(category: Category) {
 
-        this.selectedCategory=category;
+        this.selectedCategory = category;
 
-        this.dataHandler.searchTasks(this.selectedCategory, null, null,  null)
-            .subscribe(tasks=>{this.tasks=tasks});
+        this.dataHandler.searchTasks(this.selectedCategory, null, null, null)
+            .subscribe(tasks => {
+                this.tasks = tasks
+            });
     }
 }
