@@ -31,4 +31,8 @@ export class AppComponent {
                 this.tasks = tasks
             });
     }
+
+    onSelectTask(task: Task) {
+        console.log(task)
+    }
 }

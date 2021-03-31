@@ -1,9 +1,10 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {DataHandlerService} from "../../service/data-handler.service";
 import {Task} from 'src/app/model/Task';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import {Category} from "../../model/Category";
 
 @Component({
     selector: 'app-tasks',
@@ -29,6 +30,9 @@ export class TasksComponent implements OnInit {
         this.fillTable()
     }
 
+    @Output()
+    selectTask= new EventEmitter<Task>();
+
     constructor(private dataHandler: DataHandlerService) {
     }
 
@@ -47,9 +51,9 @@ export class TasksComponent implements OnInit {
     // }
 
 
-    toggleTaskCompleted(task: Task) {
-        task.completed = !task.completed;
-    }
+    // toggleTaskCompleted(task: Task) {
+    //     task.completed = !task.completed;
+    // }
 
     // в зависимости от статуса задачи - вернуть цвет названия
     getPriorityColor(task: Task) {
@@ -106,5 +110,9 @@ export class TasksComponent implements OnInit {
     private addTableObjects() {
         this.dataSource.sort = this.sort; // компонент для сортировки данных (если необходимо)
         this.dataSource.paginator = this.paginator; // обновить компонент постраничности (кол-во записей, страниц)
+    }
+
+    onClickTask(task: Task) {
+        this.selectTask.emit(task)
     }
 }
