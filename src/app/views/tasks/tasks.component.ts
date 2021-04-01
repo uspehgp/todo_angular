@@ -5,6 +5,8 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {Category} from "../../model/Category";
+import {MatDialog} from "@angular/material/dialog";
+import {EditTaskDialogComponent} from "../../dialog/edit-task-dialog/edit-task-dialog.component";
 
 @Component({
     selector: 'app-tasks',
@@ -33,7 +35,8 @@ export class TasksComponent implements OnInit {
     @Output()
     selectTask= new EventEmitter<Task>();
 
-    constructor(private dataHandler: DataHandlerService) {
+    constructor(private dataHandler: DataHandlerService,
+                private dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -112,7 +115,11 @@ export class TasksComponent implements OnInit {
         this.dataSource.paginator = this.paginator; // обновить компонент постраничности (кол-во записей, страниц)
     }
 
-    onClickTask(task: Task) {
-        this.selectTask.emit(task)
+   openEdinTaskDialog(task: Task) {
+
+        const dialogRef = this.dialog.open(EditTaskDialogComponent, {data:[task, task.title], autoFocus: false});
+        dialogRef.afterClosed().subscribe(result =>{
+
+        })
     }
 }
