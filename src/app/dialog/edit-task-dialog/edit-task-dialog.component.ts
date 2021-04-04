@@ -4,34 +4,53 @@ import {Task} from "../../model/Task";
 import {DataHandlerService} from "../../service/data-handler.service";
 
 @Component({
-  selector: 'app-edit-task-dialog',
-  templateUrl: './edit-task-dialog.component.html',
-  styleUrls: ['./edit-task-dialog.component.css']
+    selector: 'app-edit-task-dialog',
+    templateUrl: './edit-task-dialog.component.html',
+    styleUrls: ['./edit-task-dialog.component.css']
 })
+
+// редактирование/создание задачи
 export class EditTaskDialogComponent implements OnInit {
 
-  constructor(
-      private dialogRef: MatDialogRef<EditTaskDialogComponent>,
-      @Inject(MAT_DIALOG_DATA) private data: [Task, string],
-      private dataHandler: DataHandlerService,
-      private dialog: MatDialog)
-  {
+    dialogTitle: string; // заголовок окна
+    private task: Task; // задача для редактирования/создания
+    // чтобы изменения не сказывались на самой задаче и можно было отменить изменения
+    tmpTitle: string;
 
-  }
+    // сохраняем все значения в отдельные переменные
 
-  dialogTitle: string;
-  private task: Task;
+    constructor(
+        private dialogRef: MatDialogRef<EditTaskDialogComponent>, // // для возможности работы с текущим диалог. окном
+        @Inject(MAT_DIALOG_DATA) private data: [Task, string] // данные, которые передали в диалоговое окно
+    ) {
+    }
 
-  ngOnInit(): void {
-    this.task=this.data[0];
-    this.dialogTitle=this.data[1];
 
-    console.log(this.task);
-    console.log(this.dialogTitle);
-  }
+    ngOnInit() {
+        this.task = this.data[0]; // задача для редактирования/создания
+        this.dialogTitle = this.data[1]; // текст для диалогового окна
 
-  showDialogTitle(dialogTitle: string){
-    return dialogTitle;
-  }
+        // инициализация начальных значений (записывам в отдельные переменные
+        // чтобы можно было отменить изменения, а то будут сразу записываться в задачу)
+        this.tmpTitle = this.task.title;
 
+    }
+
+    // нажали ОК
+    onConfirm(): void {
+
+        // считываем все значения для сохранения в поля задачи
+        this.task.title = this.tmpTitle;
+
+
+        // передаем добавленную/измененную задачу в обработчик
+        // что с ним будут делать - уже на задача этого компонента
+        this.dialogRef.close(this.task);
+
+    }
+
+    // нажали отмену (ничего не сохраняем и закрываем окно)
+    onCancel(): void {
+        this.dialogRef.close(null);
+    }
 }

@@ -35,16 +35,9 @@ export class DataHandlerService {
         return this.taskDaoArray.search(category,searchText,status,priority);
     }
 
-    // getCategories(): Category[] {
-    //     return TestData.categories;
-    // }
+    updateTask (task: Task): Observable<Task>{
+        return this.taskDaoArray.update(task);
+    }
 
-    // fillTasks() {
-    //     this.taskSubject.next(TestData.tasks);
-    // }
-    //
-    // fillTasksByCategory(category: Category) {
-    //     const tasks = TestData.tasks.filter(task => task.category === category);
-    //     this.taskSubject.next(tasks);
-    // }
+
 }

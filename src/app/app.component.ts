@@ -32,7 +32,13 @@ export class AppComponent {
             });
     }
 
-    onSelectTask(task: Task) {
-        console.log(task)
+    onUpdateTask(task: Task) {
+        this.dataHandler.updateTask(task).subscribe(()=>{
+            this.dataHandler.searchTasks(this.selectedCategory, null, null, null)
+                .subscribe(tasks => {
+                    this.tasks = tasks
+                });
+        })
+
     }
 }
