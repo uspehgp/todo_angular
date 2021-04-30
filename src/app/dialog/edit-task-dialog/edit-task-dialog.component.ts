@@ -12,7 +12,7 @@ import {DataHandlerService} from "../../service/data-handler.service";
 // редактирование/создание задачи
 export class EditTaskDialogComponent implements OnInit {
 
-    dialogTitle: string; // заголовок окна
+    dialogTitle: string = 'Редактирование задачи'; // заголовок окна
     private task: Task; // задача для редактирования/создания
     // чтобы изменения не сказывались на самой задаче и можно было отменить изменения
     tmpTitle: string;

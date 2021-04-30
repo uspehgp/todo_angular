@@ -9,11 +9,11 @@
         <mat-label>Название (обязательно)</mat-label>
         <input
             #inputTitle
+            matInput
+
             (keydown.enter)="onConfirm()"
 
-            [(ngModel)]="tmpTitle"
-
-            matInput> <!-- по нажатию на enter можем сразу сохранить задачу -->
+            [(ngModel)]="tmpTitle"> <!-- по нажатию на enter можем сразу сохранить задачу -->
 
         <button
                 (click)="tmpTitle= ''"

@@ -24,6 +24,8 @@ export class TasksComponent implements OnInit {
     @ViewChild(MatPaginator, {static: false}) private paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) private sort: MatSort;
 
+    @Output()
+    updateTask = new EventEmitter<Task>();
     tasks: Task[];
 
     @Input('tasks')
@@ -33,7 +35,7 @@ export class TasksComponent implements OnInit {
     }
 
     @Output()
-    selectTask= new EventEmitter<Task>();
+    selectTask = new EventEmitter<Task>();
 
     constructor(private dataHandler: DataHandlerService,
                 private dialog: MatDialog) {
@@ -115,10 +117,18 @@ export class TasksComponent implements OnInit {
         this.dataSource.paginator = this.paginator; // обновить компонент постраничности (кол-во записей, страниц)
     }
 
-   openEdinTaskDialog(task: Task) {
+    openEditTaskDialog(task: Task): void {
 
-        const dialogRef = this.dialog.open(EditTaskDialogComponent, {data:[task, task.title], autoFocus: false});
-        dialogRef.afterClosed().subscribe(result =>{
+        const dialogRef = this.dialog.open(EditTaskDialogComponent, {
+            data: [task, 'Редактирование задачи'],
+            autoFocus: false
+        });
+        dialogRef.afterClosed().subscribe(result => {
+
+            if (result as Task) {
+                this.updateTask.emit(task);
+                return;
+            }
 
         })
     }
