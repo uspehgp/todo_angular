@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog
 import {Task} from "../../model/Task";
 import {DataHandlerService} from "../../service/data-handler.service";
 import {Category} from "../../model/Category";
+import {Priority} from "../../model/Priority";
 
 @Component({
     selector: 'app-edit-task-dialog',
@@ -18,6 +19,7 @@ export class EditTaskDialogComponent implements OnInit {
     // чтобы изменения не сказывались на самой задаче и можно было отменить изменения
     tmpTitle: string;
     tmpCategory: Category;
+    tmpPriority: Priority;
 
 
     // сохраняем все значения в отдельные переменные
@@ -30,6 +32,7 @@ export class EditTaskDialogComponent implements OnInit {
     }
 
     categories: Category[];
+    priorities: Priority[];
 
 
     ngOnInit() {
@@ -41,7 +44,8 @@ export class EditTaskDialogComponent implements OnInit {
         this.tmpTitle = this.task.title;
         this.tmpCategory = this.task.category;
         this.dataHandler.getAllCategories().subscribe(items => this.categories = items);
-
+        this.tmpPriority=this.task.priority;
+        this.dataHandler.getAllPriorities().subscribe(items => this.priorities = items);
     }
 
     // нажали ОК
@@ -50,7 +54,7 @@ export class EditTaskDialogComponent implements OnInit {
         // считываем все значения для сохранения в поля задачи
         this.task.title = this.tmpTitle;
         this.task.category=this.tmpCategory;
-
+        this.task.priority=this.tmpPriority;
 
         // передаем добавленную/измененную задачу в обработчик
         // что с ним будут делать - уже на задача этого компонента
