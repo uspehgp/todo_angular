@@ -46,9 +46,7 @@
         </mat-select>
     </mat-form-field>
 
-
 </mat-dialog-content>
-
 
 <!--  кнопки возможных действий-->
 <mat-dialog-actions>
@@ -60,9 +58,9 @@
         Сохранить
     </button>
 
-
     <button (click)="onCancel()" mat-raised-button>Отмена</button>
 
+    <button mat-button class="red" (click)="delete()">Удалить задачу</button>
 
 </mat-dialog-actions>
 

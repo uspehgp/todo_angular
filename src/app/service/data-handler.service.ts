@@ -1,27 +1,22 @@
 import {Injectable} from '@angular/core';
 import {Category} from "../model/Category";
-import {TestData} from "../data/TestData";
 import {Task} from "../model/Task";
-import {BehaviorSubject, Observable} from "rxjs";
 import {TaskDAOArray} from "../data/dao/impl/TaskDAOArray";
 import {CategoryDAOArray} from "../data/dao/impl/CategoryDAOArray";
 import {Priority} from "../model/Priority";
 import {PriorityDAOArray} from "../data/dao/impl/PriorityDAOArray";
+import {Observable} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
 })
 export class DataHandlerService {
 
-    taskSubject = new BehaviorSubject<Task[]>(TestData.tasks);
-
-    categorySubject = new BehaviorSubject<Category[]>(TestData.categories);
-
-    taskDaoArray = new TaskDAOArray();
+    private taskDaoArray = new TaskDAOArray();
 
     categoryDAOArray = new CategoryDAOArray();
 
-    priorityDAOArray=new PriorityDAOArray();
+    priorityDAOArray = new PriorityDAOArray();
 
     constructor() {
     }
@@ -34,7 +29,7 @@ export class DataHandlerService {
         return this.categoryDAOArray.getAll();
     }
 
-    getAllPriorities():Observable<Priority[]> {
+    getAllPriorities(): Observable<Priority[]> {
         return this.priorityDAOArray.getAll();
 
     }
@@ -48,4 +43,8 @@ export class DataHandlerService {
         return this.taskDaoArray.update(task);
     }
 
+
+    deleteTask(id: number): Observable<Task> {
+        return this.taskDaoArray.delete(id);
+    }
 }

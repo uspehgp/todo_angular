@@ -26,6 +26,10 @@ export class TasksComponent implements OnInit {
 
     @Output()
     updateTask = new EventEmitter<Task>();
+
+    @Output()
+    deleteTask = new EventEmitter<Task>();
+
     tasks: Task[];
 
     @Input('tasks')
@@ -127,6 +131,11 @@ export class TasksComponent implements OnInit {
 
             if (result as Task) {
                 this.updateTask.emit(task);
+                return;
+            }
+
+            if (result === 'delete') {
+                this.deleteTask.emit(task);
                 return;
             }
 

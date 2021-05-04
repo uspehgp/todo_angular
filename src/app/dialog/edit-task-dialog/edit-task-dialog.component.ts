@@ -4,6 +4,7 @@ import {Task} from "../../model/Task";
 import {DataHandlerService} from "../../service/data-handler.service";
 import {Category} from "../../model/Category";
 import {Priority} from "../../model/Priority";
+import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
 
 @Component({
     selector: 'app-edit-task-dialog',
@@ -27,7 +28,8 @@ export class EditTaskDialogComponent implements OnInit {
     constructor(
         private dialogRef: MatDialogRef<EditTaskDialogComponent>, // // для возможности работы с текущим диалог. окном
         @Inject(MAT_DIALOG_DATA) private data: [Task, string], // данные, которые передали в диалоговое окно
-        private dataHandler: DataHandlerService
+        private dataHandler: DataHandlerService,
+        private dialog: MatDialog
     ) {
     }
 
@@ -44,7 +46,7 @@ export class EditTaskDialogComponent implements OnInit {
         this.tmpTitle = this.task.title;
         this.tmpCategory = this.task.category;
         this.dataHandler.getAllCategories().subscribe(items => this.categories = items);
-        this.tmpPriority=this.task.priority;
+        this.tmpPriority = this.task.priority;
         this.dataHandler.getAllPriorities().subscribe(items => this.priorities = items);
     }
 
@@ -53,8 +55,8 @@ export class EditTaskDialogComponent implements OnInit {
 
         // считываем все значения для сохранения в поля задачи
         this.task.title = this.tmpTitle;
-        this.task.category=this.tmpCategory;
-        this.task.priority=this.tmpPriority;
+        this.task.category = this.tmpCategory;
+        this.task.priority = this.tmpPriority;
 
         // передаем добавленную/измененную задачу в обработчик
         // что с ним будут делать - уже на задача этого компонента
@@ -65,5 +67,22 @@ export class EditTaskDialogComponent implements OnInit {
     // нажали отмену (ничего не сохраняем и закрываем окно)
     onCancel(): void {
         this.dialogRef.close(null);
+    }
+
+    delete() {
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+            maxWidth: '500px',
+            data: {
+                dialogTitle: 'Подтвердите действие',
+                massage: `Вы действительно хотите удалить задачу: "${this.task.title}"?`
+            },
+            autoFocus: false
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.dialogRef.close('delete');
+            }
+        })
+
     }
 }

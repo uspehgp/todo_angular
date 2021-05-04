@@ -76,6 +76,7 @@
                 <div class="row">
                     <div class="col-12">
                         <app-tasks (selectTask)="onUpdateTask($event)"
+                                   (deleteTask)="onDeleteTask($event)"
                                 [tasks]="tasks"></app-tasks>
                     </div>
                 </div>
