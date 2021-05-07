@@ -4,7 +4,6 @@ import {Task} from 'src/app/model/Task';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {Category} from "../../model/Category";
 import {MatDialog} from "@angular/material/dialog";
 import {EditTaskDialogComponent} from "../../dialog/edit-task-dialog/edit-task-dialog.component";
 
@@ -136,6 +135,19 @@ export class TasksComponent implements OnInit {
 
             if (result === 'delete') {
                 this.deleteTask.emit(task);
+                return;
+
+            }
+
+            if (result === 'complete') {
+                task.completed = true;
+                this.updateTask.emit(task);
+                return;
+            }
+
+            if (result === 'activate') {
+                task.completed = false;
+                this.updateTask.emit(task);
                 return;
             }
 

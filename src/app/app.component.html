@@ -1,6 +1,6 @@
 <div class="wrapper ">
     <app-categories (selectCategory)="onSelectCategory($event)"
-            [categories]="categories"></app-categories>
+                    [categories]="categories"></app-categories>
     <div class="main-panel">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
@@ -75,9 +75,10 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <app-tasks (selectTask)="onUpdateTask($event)"
+                        <app-tasks [tasks]="tasks"
+                                   (selectTask)="onUpdateTask($event)"
                                    (deleteTask)="onDeleteTask($event)"
-                                [tasks]="tasks"></app-tasks>
+                        ></app-tasks>
                     </div>
                 </div>
             </div>
@@ -161,10 +162,10 @@
                     <img alt="" src="../assets/img/sidebar-4.jpg">
                 </a>
             </li>
-            <li class="button-container">
-                <a class="btn btn-primary btn-block" href="https://www.creative-tim.com/product/material-dashboard"
-                   target="_blank">Free Download</a>
-            </li>
+<!--            <li class="button-container">-->
+<!--                <a class="btn btn-primary btn-block" href="https://www.creative-tim.com/product/material-dashboard"-->
+<!--                   target="_blank">Free Download</a>-->
+<!--            </li>-->
             <!-- <li class="header-title">Want more components?</li>
                 <li class="button-container">
                     <a href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-warning btn-block">

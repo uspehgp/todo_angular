@@ -16,7 +16,7 @@ import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component
 export class EditTaskDialogComponent implements OnInit {
 
     dialogTitle: string = 'Редактирование задачи'; // заголовок окна
-    private task: Task; // задача для редактирования/создания
+    task: Task; // задача для редактирования/создания
     // чтобы изменения не сказывались на самой задаче и можно было отменить изменения
     tmpTitle: string;
     tmpCategory: Category;
@@ -84,5 +84,17 @@ export class EditTaskDialogComponent implements OnInit {
             }
         })
 
+    }
+
+    complete(task: Task) {
+        task.completed = !task.completed
+        // this.dataHandler.updateTaskCompleted(task);
+        this.dialogRef.close('complete');
+    }
+
+    activate(task: Task) {
+        task.completed = !task.completed
+        // this.dataHandler.updateTaskCompleted(task);
+        this.dialogRef.close('activate');
     }
 }

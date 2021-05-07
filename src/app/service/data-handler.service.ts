@@ -40,6 +40,7 @@ export class DataHandlerService {
     }
 
     updateTask(task: Task): Observable<Task> {
+        console.log("at updateTask");
         return this.taskDaoArray.update(task);
     }
 
@@ -47,4 +48,8 @@ export class DataHandlerService {
     deleteTask(id: number): Observable<Task> {
         return this.taskDaoArray.delete(id);
     }
+
+    // updateTaskCompleted(task: Task) {
+    //     return this.taskDaoArray.updateCompleted(task)
+    // }
 }

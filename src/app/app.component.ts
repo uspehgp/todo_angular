@@ -13,8 +13,9 @@ export class AppComponent implements OnInit {
     tasks: Task[];
     categories: Category[];
     selectedCategory: Category = null;
+    completed: Task;
 
-    constructor(private dataHandler: DataHandlerService) {
+    constructor(public dataHandler: DataHandlerService) {
     }
 
     ngOnInit(): void {
@@ -34,6 +35,7 @@ export class AppComponent implements OnInit {
     }
 
     onUpdateTask(task: Task) {
+        console.log("at onUpdateTask");
         this.dataHandler.updateTask(task).subscribe(() => {
             this.dataHandler.searchTasks(this.selectedCategory, null, null, null)
                 .subscribe(tasks => {
@@ -44,6 +46,7 @@ export class AppComponent implements OnInit {
     }
 
     onDeleteTask(task: Task) {
+        console.log("at onDeleteTask");
         this.dataHandler.deleteTask(task.id).subscribe(() => {
             this.dataHandler.searchTasks(this.selectedCategory, null, null, null)
                 .subscribe(tasks => {
