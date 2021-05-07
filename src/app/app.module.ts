@@ -19,6 +19,7 @@ import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {ConfirmDialogComponent} from './dialog/confirm-dialog/confirm-dialog.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import { TaskDatePipe } from './pipe/task-date.pipe';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
         CategoriesComponent,
         TasksComponent,
         EditTaskDialogComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        TaskDatePipe
     ],
     imports: [
         BrowserModule,

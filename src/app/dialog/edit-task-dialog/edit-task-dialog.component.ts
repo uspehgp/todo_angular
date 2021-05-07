@@ -21,6 +21,7 @@ export class EditTaskDialogComponent implements OnInit {
     tmpTitle: string;
     tmpCategory: Category;
     tmpPriority: Priority;
+    tmpDate: Date;
 
 
     // сохраняем все значения в отдельные переменные
@@ -57,6 +58,7 @@ export class EditTaskDialogComponent implements OnInit {
         this.task.title = this.tmpTitle;
         this.task.category = this.tmpCategory;
         this.task.priority = this.tmpPriority;
+        this.task.date=this.tmpDate;
 
         // передаем добавленную/измененную задачу в обработчик
         // что с ним будут делать - уже на задача этого компонента
@@ -65,6 +67,7 @@ export class EditTaskDialogComponent implements OnInit {
     }
 
     // нажали отмену (ничего не сохраняем и закрываем окно)
+
     onCancel(): void {
         this.dialogRef.close(null);
     }
