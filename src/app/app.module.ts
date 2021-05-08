@@ -21,6 +21,11 @@ import {ConfirmDialogComponent} from './dialog/confirm-dialog/confirm-dialog.com
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import { TaskDatePipe } from './pipe/task-date.pipe';
 
+import {registerLocaleData} from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+
+registerLocaleData(localeRu);
+
 @NgModule({
     declarations: [
         AppComponent,
